@@ -11,5 +11,8 @@
     "url": "git+https://github.com/Parsa-jalilifar/fragments.git"
   },
   "author": "Parsa Jalilifar",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "prettier": "2.6.2"
+  }
 }
