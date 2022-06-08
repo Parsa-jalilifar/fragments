@@ -75,7 +75,9 @@ class Fragment {
    * @returns Promise<Fragment>
    */
   static async byId(ownerId, id) {
-    return readFragment(ownerId, id);
+    const data = await readFragment(ownerId, id);
+    if (data === undefined) throw new Error('There is no fragment with provide ownerId and id!');
+    return data;
   }
 
   /**
