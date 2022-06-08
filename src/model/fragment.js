@@ -65,7 +65,7 @@ class Fragment {
    * @returns Promise<Array<Fragment>>
    */
   static async byUser(ownerId, expand = false) {
-    return listFragments(ownerId, expand);
+    return await listFragments(ownerId, expand);
   }
 
   /**
@@ -104,7 +104,7 @@ class Fragment {
    * @returns Promise<Buffer>
    */
   async getData() {
-    return readFragmentData(this.ownerId, this.id);
+    return await readFragmentData(this.ownerId, this.id);
   }
 
   /**
@@ -115,7 +115,7 @@ class Fragment {
   async setData(data) {
     this.size = Buffer.byteLength(data);
     this.updated = new Date().toISOString();
-    return writeFragmentData(this.ownerId, this.id, data);
+    return await writeFragmentData(this.ownerId, this.id, data);
   }
 
   /**
