@@ -27,35 +27,24 @@ const validTypes = {
 
 class Fragment {
   constructor({ id, ownerId, created, updated, type, size = 0 }) {
-    // can not start making fragment without having ownerId or type
     if (!ownerId || !type) {
-      throw Error('ownerId or type are missing!');
+      throw Error('ownerId or type is missing!');
     }
 
-    // type must be one of valid types
     if (!Fragment.isSupportedType(type)) {
       throw Error('type is not supported!');
     }
 
-    this.type = type;
-
-    if (size) {
-      // will be sure size to be a number and have a value greater than -1
-      if (Number.isInteger(size) && size > -1) {
-        this.size = size;
-      } else {
-        throw Error('size does not have valid value!');
-      }
-    } else {
-      this.size = 0;
+    if (!Number.isInteger(size) || size < 0) {
+      throw Error('size does not have a valid value!');
     }
 
-    this.id = id ? id : nanoid();
+    this.id = id || nanoid();
     this.ownerId = ownerId;
-    this.created =
-      !created || Object.keys(created).length === 0 ? new Date().toISOString() : created;
-    this.updated =
-      !updated || Object.keys(updated).length === 0 ? new Date().toISOString() : updated;
+    this.created = created || new Date().toISOString();
+    this.updated = updated || new Date().toISOString();
+    this.type = type;
+    this.size = size;
   }
 
   /**
@@ -65,7 +54,11 @@ class Fragment {
    * @returns Promise<Array<Fragment>>
    */
   static async byUser(ownerId, expand = false) {
-    return await listFragments(ownerId, expand);
+    try {
+      return await listFragments(ownerId, expand);
+    } catch (error) {
+      throw new Error('Can not get fragments for the current user.');
+    }
   }
 
   /**
@@ -75,9 +68,13 @@ class Fragment {
    * @returns Promise<Fragment>
    */
   static async byId(ownerId, id) {
-    const data = await readFragment(ownerId, id);
-    if (data === undefined) throw new Error('There is no fragment with provided ownerId and id!');
-    return data;
+    try {
+      const fragment = await readFragment(ownerId, id);
+      if (!fragment) throw new Error('There is no fragment with provided ownerId or id.');
+      return fragment;
+    } catch (error) {
+      throw new Error('Can not read fragment with provided ownerId or id.');
+    }
   }
 
   /**
@@ -103,8 +100,8 @@ class Fragment {
    * Gets the fragment's data from the database
    * @returns Promise<Buffer>
    */
-  async getData() {
-    return await readFragmentData(this.ownerId, this.id);
+  getData() {
+    return readFragmentData(this.ownerId, this.id);
   }
 
   /**
@@ -113,9 +110,13 @@ class Fragment {
    * @returns Promise
    */
   async setData(data) {
-    this.size = Buffer.byteLength(data);
-    this.updated = new Date().toISOString();
-    return await writeFragmentData(this.ownerId, this.id, data);
+    try {
+      this.size = Buffer.byteLength(data);
+      this.updated = new Date().toISOString();
+      return await writeFragmentData(this.ownerId, this.id, data);
+    } catch (error) {
+      throw new Error('Can not set fragment data');
+    }
   }
 
   /**
