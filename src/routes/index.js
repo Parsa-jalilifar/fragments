@@ -7,24 +7,17 @@ const { version, author } = require('../../package.json');
 
 // Our authorization middleware
 const { authenticate } = require('../authorization');
-const hash = require('../hash');
 
 const { createSuccessResponse } = require('../response');
 
 // Create a router that we can use to mount our API
 const router = express.Router();
 
-// Hashing Email Address
-const hashEmail = async (req, res, next) => {
-  req.user = hash(req.user);
-  next();
-};
-
 /**
  * Expose all of our API routes on /v1/* to include an API version.
  * Protect them all so you have to be authenticated in order to access.
  */
-router.use(`/v1`, authenticate(), hashEmail, require('./api'));
+router.use(`/v1`, authenticate(), require('./api'));
 
 /**
  * Define a simple health check route. If the server is running
