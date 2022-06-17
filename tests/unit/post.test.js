@@ -1,3 +1,5 @@
+// tests/unit/post.test.js
+
 const request = require('supertest');
 const app = require('../../src/app');
 
@@ -10,8 +12,9 @@ describe('POST /fragments', () => {
     expect(res.body.status).toBe('ok');
   });
 
-  test('incorrect credentials provide no access', () =>
-    request(app).post('/v1/fragments').auth('invalid@email.com', 'invalid_password').expect(401));
+  // If the wrong username/password pair are used (no such user), it should be forbidden
+  test('incorrect credentials are denied', () =>
+    request(app).post('/v1/fragments').auth('invalid@email.com', 'incorrect_password').expect(401));
 
   test('fragment without data does not work', async () => {
     const res = await request(app)
