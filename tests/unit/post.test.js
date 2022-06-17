@@ -5,7 +5,8 @@ const app = require('../../src/app');
 
 describe('POST /v1/fragments', () => {
   test('authenticated users can create a fragment', async () => {
-    const res = await request(app).post('/v1/fragments').auth('user1@email.com', 'password1').send({
+    const res = await request(app).post('/v1/fragments').auth('user1@email.com', 'password1').set({
+      'Content-Type': 'text/plain',
       body: 'This is a fragment',
     });
     expect(res.statusCode).toBe(201);
@@ -25,5 +26,14 @@ describe('POST /v1/fragments', () => {
       .auth('user1@email.com', 'password1')
       .send();
     expect(res.statusCode).toBe(500);
+  });
+
+  test('unsupported fragment types are denied', async () => {
+    const res = await request(app).post('/v1/fragments').auth('user1@email.com', 'password1').set({
+      'Content-Type': 'application/xml',
+      body: '<name>fragment</name>',
+    });
+    expect(res.statusCode).toBe(415);
+    expect(res.body.status).toBe('error');
   });
 });
