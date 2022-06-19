@@ -3,6 +3,8 @@ const { nanoid } = require('nanoid');
 // Use https://www.npmjs.com/package/content-type to create/parse Content-Type headers
 const contentType = require('content-type');
 
+var md = require('markdown-it')();
+
 // Functions for working with fragment metadata/data using our DB
 const {
   readFragment,
@@ -175,6 +177,34 @@ class Fragment {
   static isSupportedType(value) {
     return Object.values(validTypes).includes(value);
   }
-}
 
+  /**
+   * returns true if the extension is supported
+   *  */
+  static isSupportedExt(value) {
+    return Object.keys(validTypes).includes(value);
+  }
+
+  /**
+   * return the type by using its extension
+   *  */
+  static extValidType(ext) {
+    return validTypes[ext];
+  }
+
+  /**
+   * return the converted fragment data after checking type of conversion
+   *  */
+  convertData(fragmentData, conversionType) {
+    switch (conversionType) {
+      case 'text/plain':
+        return fragmentData.toString();
+      case 'text/html':
+        if (this.type === 'text/markdown') return md.render(fragmentData.toString());
+        return fragmentData;
+      default:
+        return fragmentData;
+    }
+  }
+}
 module.exports.Fragment = Fragment;
