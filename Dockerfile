@@ -37,8 +37,7 @@ RUN npm ci --only=production
 FROM node:16.15.1-alpine3.15@sha256:1fafca8cf41faf035192f5df1a5387656898bec6ac2f92f011d051ac2344f5c9 AS deploy
 
 # Install dumb-init and curl
-RUN apk add --no-cache dumb-init=~1.2.5  \
-  && apk add --no-cache curl=~7.80.0
+RUN apk add --no-cache dumb-init=~1.2.5 curl=~7.80.0
 
 # Image and container will run in production mode
 ENV NODE_ENV=production
