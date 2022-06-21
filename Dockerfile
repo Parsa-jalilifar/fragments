@@ -37,7 +37,11 @@ RUN npm ci --only=production
 FROM node:16.15.1-alpine3.15@sha256:1fafca8cf41faf035192f5df1a5387656898bec6ac2f92f011d051ac2344f5c9 AS deploy
 
 # Install dumb-init so we can use ctrl-c to terminate docker when running
-RUN apk add dumb-init
+# and avoid the need to use --update
+RUN apk add --no-cache dumb-init
+
+# Install curl and avoid the need to use --update
+RUN apk add --no-cache curl=~7.80.0
 
 # Image and container will run in production mode
 ENV NODE_ENV=production
@@ -65,5 +69,5 @@ CMD ["dumb-init", "node", "src/index.js"]
 EXPOSE 8080
 
 # Healthcheck
-HEALTHCHECK --interval=15s --timeout=30s --start-period=10s --retries=3 \
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
   CMD curl --fail localhost:8080 || exit 1
