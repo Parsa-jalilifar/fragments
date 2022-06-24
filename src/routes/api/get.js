@@ -45,7 +45,10 @@ module.exports = {
         }
 
         const newFragmentData = fragment.convertData(fragmentData, type);
-        logger.debug({ newFragmentData }, 'Converted fragment data');
+        logger.debug(
+          { newFragmentData: newFragmentData, contentType: type },
+          'New fragment data and content type'
+        );
         res.setHeader('Content-type', type);
         res.status(200).send(newFragmentData);
       }
