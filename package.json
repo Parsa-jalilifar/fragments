@@ -4,6 +4,7 @@
   "version": "0.7.2",
   "description": "Fragments back-end API",
   "scripts": {
+    "test:integration": "hurl --test --glob \"tests/integration/**/*.hurl\"",
     "test:watch": "jest -c jest.config.js --runInBand --watch --",
     "test": "jest -c jest.config.js --runInBand --",
     "coverage": "jest -c jest.config.js --runInBand --coverage",
@@ -19,6 +20,7 @@
   "author": "Parsa Jalilifar",
   "license": "UNLICENSED",
   "devDependencies": {
+    "@orangeopensource/hurl": "^1.6.5",
     "eslint": "^8.15.0",
     "jest": "^28.1.0",
     "nodemon": "^2.0.16",
