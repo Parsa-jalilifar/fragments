@@ -30,7 +30,8 @@ module.exports = {
 
       if (!ext) {
         logger.debug({ fragment }, 'GET /fragments/:id');
-        res.status(200).send(fragmentData.toString());
+        res.setHeader('content-type', fragment.type);
+        res.status(200).send(fragmentData);
       } else {
         logger.debug({ id: id, ext: ext }, 'GET /fragments/:id.ext');
 
