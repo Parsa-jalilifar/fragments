@@ -1,5 +1,5 @@
 # tests/integration/post-fragments-unauthenticated.hurl
-# Authenticated POST to /v1/fragments
+# unauthenticated POST to /v1/fragments
 POST http://localhost:8080/v1/fragments
 # We're sending a plain text fragment
 Content-Type: text/plain
