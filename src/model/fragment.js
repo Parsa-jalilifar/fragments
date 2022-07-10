@@ -115,7 +115,7 @@ class Fragment {
       this.updated = new Date().toISOString();
       return await writeFragmentData(this.ownerId, this.id, data);
     } catch (error) {
-      throw new Error('Can not set fragment data');
+      throw new Error(`setting fragment data failed, ${error}`);
     }
   }
 
