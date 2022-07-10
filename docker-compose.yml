@@ -7,8 +7,4 @@ services:
       - '80:8080'
     environment:
       - NODE_ENV=production
-      - LOG_LEVEL=${LOG_LEVEL:-info}
-      - AWS_REGION=us-east-1
-      - AWS_COGNITO_POOL_ID
-      - AWS_COGNITO_CLIENT_ID
-      - HTPASSWD
+      - HTPASSWD_FILE=tests/.htpasswd
