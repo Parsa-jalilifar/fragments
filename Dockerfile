@@ -52,8 +52,8 @@ COPY --chown=node:node --from=dependencies /app /app/
 # Copy src to /app/src/
 COPY --chown=node:node ./src ./src
 
-# Copy our HTPASSWD file
-COPY --chown=node:node ./tests/.htpasswd ./tests/.htpasswd
+# Copy our HTPASSWD file and neccessary files
+COPY --chown=node:node ./tests ./tests
 
 # Change user from root to node
 USER node
