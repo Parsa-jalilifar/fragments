@@ -3,7 +3,7 @@
 coverage/
 node_modules/
 tests/
-!tests/integration/lab-9.hurl
+!tests/integration/lab-9-s3.hurl
 !tests/.htpasswd
 .env
 .eslintrc.js
