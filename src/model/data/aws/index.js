@@ -114,6 +114,7 @@ async function deleteFragment(ownerId, id) {
 
   try {
     await s3Client.send(command);
+    metadata.del(ownerId, id);
   } catch (err) {
     const { Bucket, Key } = params;
     logger.error({ err, Bucket, Key }, 'Error deleting fragment data from S3');
