@@ -1,5 +1,7 @@
-const { Fragment } = require('../../model/fragment');
+// src/routes/api/post.js
+
 const { createSuccessResponse, createErrorResponse } = require('../../response');
+const Fragment = require('../../model/fragment');
 const logger = require('../../logger');
 
 module.exports = async (req, res) => {
