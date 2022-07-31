@@ -13,7 +13,7 @@ const {
   writeFragmentData,
   listFragments,
   deleteFragment,
-} = require('./data');
+} = require('./data/memory');
 
 const validTypes = {
   txt: 'text/plain',
@@ -91,9 +91,9 @@ class Fragment {
    * Saves the current fragment to the database
    * @returns Promise
    */
-  save() {
+  async save() {
     this.updated = new Date().toISOString();
-    return writeFragment(this);
+    return await writeFragment(this);
   }
 
   /**
@@ -169,6 +169,7 @@ class Fragment {
     }
     return mimeTypes;
   }
+
   /**
    * Returns true if we know how to work with this content type
    * @param {string} value a Content-Type value (e.g., 'text/plain' or 'text/plain: charset=utf-8')
@@ -207,4 +208,5 @@ class Fragment {
     }
   }
 }
-module.exports.Fragment = Fragment;
+
+module.exports = Fragment;
