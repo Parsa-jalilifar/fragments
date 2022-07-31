@@ -1,5 +1,4 @@
 const MemoryDB = require('./memory-db');
-const logger = require('../../../logger');
 
 // Create two in-memory databases: one for fragment metadata and the other for raw data
 const data = new MemoryDB();
@@ -17,9 +16,6 @@ function readFragment(ownerId, id) {
 
 // Write a fragment's data to memory db. Returns a Promise
 function writeFragmentData(ownerId, id, value) {
-  logger.info('----------------------------------------------');
-  logger.info('FRAGMENTATION WRITE PROCESS MEMORY');
-  logger.info('----------------------------------------------');
   return data.put(ownerId, id, value);
 }
 
