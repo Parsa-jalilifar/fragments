@@ -31,10 +31,6 @@ async function writeFragmentData(ownerId, id, data) {
   // Create a PUT Object command to send to S3
   const command = new PutObjectCommand(params);
 
-  logger.info('----------------------------------------------');
-  logger.info('Write fragment data aws');
-  logger.info('----------------------------------------------');
-
   try {
     // Use our client to send the command
     await s3Client.send(command);
