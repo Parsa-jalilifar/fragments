@@ -20,6 +20,9 @@ module.exports = async (req, res) => {
     await fragment.setData(req.body);
 
     logger.debug({ fragment }, 'POST /fragments');
+    logger.info('----------------------------------------------');
+    logger.info('Post Request');
+    logger.info('----------------------------------------------');
 
     res.setHeader('Location', `${process.env.API_URL}/v1/fragments/${fragment.id}`);
     res.status(201).json(createSuccessResponse({ fragment }));

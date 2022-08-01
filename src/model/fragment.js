@@ -2,6 +2,7 @@
 const { nanoid } = require('nanoid');
 // Use https://www.npmjs.com/package/content-type to create/parse Content-Type headers
 const contentType = require('content-type');
+const logger = require('../../../logger');
 
 var md = require('markdown-it')();
 
@@ -113,6 +114,9 @@ class Fragment {
     try {
       this.size = Buffer.byteLength(data);
       this.updated = new Date().toISOString();
+      logger.info('----------------------------------------------');
+      logger.info('Set data');
+      logger.info('----------------------------------------------');
       return await writeFragmentData(this.ownerId, this.id, data);
     } catch (error) {
       throw new Error(`setting fragment data failed, ${error}`);
