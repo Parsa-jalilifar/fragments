@@ -1,13 +1,10 @@
-// src/routes/api/get.id.js
+// src/routes/api/get-id.js
 
 const { createErrorResponse } = require('../../response');
 const logger = require('../../logger');
 const Fragment = require('../../model/fragment');
 const path = require('path');
 
-/**
- * Retrieve a fragment's data from the database and convert to .ext if needed
- */
 module.exports = async (req, res) => {
   try {
     const ownerId = req.user;
