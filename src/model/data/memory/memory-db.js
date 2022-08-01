@@ -2,7 +2,6 @@ const validateKey = (key) => typeof key === 'string';
 
 class MemoryDB {
   constructor() {
-    /** @type {Record<string, any>} */
     this.db = {};
   }
 
@@ -10,7 +9,7 @@ class MemoryDB {
    * Gets a value for the given primaryKey and secondaryKey
    * @param {string} primaryKey
    * @param {string} secondaryKey
-   * @returns {Promise<any>}
+   * @returns Promise<any>
    */
   get(primaryKey, secondaryKey) {
     if (!(validateKey(primaryKey) && validateKey(secondaryKey))) {
@@ -28,7 +27,7 @@ class MemoryDB {
    * Puts a value into the given primaryKey and secondaryKey
    * @param {string} primaryKey
    * @param {string} secondaryKey
-   * @returns {Promise<void>}
+   * @returns Promise
    */
   put(primaryKey, secondaryKey, value) {
     if (!(validateKey(primaryKey) && validateKey(secondaryKey))) {
@@ -49,7 +48,7 @@ class MemoryDB {
    * Queries the list of values (i.e., secondaryKeys) for the given primaryKey.
    * Always returns an Array, even if no items are found.
    * @param {string} primaryKey
-   * @returns {Promise<any[]>}
+   * @returns Promise<any[]>
    */
   query(primaryKey) {
     if (!validateKey(primaryKey)) {
@@ -66,7 +65,7 @@ class MemoryDB {
    * Deletes the value with the given primaryKey and secondaryKey
    * @param {string} primaryKey
    * @param {string} secondaryKey
-   * @returns {Promise<void>}
+   * @returns Promise<any[]>
    */
   async del(primaryKey, secondaryKey) {
     if (!(validateKey(primaryKey) && validateKey(secondaryKey))) {
