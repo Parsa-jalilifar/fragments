@@ -2,7 +2,7 @@
 const { nanoid } = require('nanoid');
 // Use https://www.npmjs.com/package/content-type to create/parse Content-Type headers
 const contentType = require('content-type');
-const logger = require('../../../logger');
+const logger = require('../logger');
 
 var md = require('markdown-it')();
 
