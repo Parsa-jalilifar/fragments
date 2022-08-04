@@ -33,4 +33,6 @@ router.post('/fragments', rawBody(), require('./post'));
 // Define our fifth route, which will be: DELETE /v1/fragments/:id
 router.delete('/fragments/:id', require('./delete'));
 
+router.put('/fragments/:id', rawBody(), require('./put'));
+
 module.exports = router;
