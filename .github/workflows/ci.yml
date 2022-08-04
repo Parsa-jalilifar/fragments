@@ -87,7 +87,7 @@ jobs:
       - name: Setup Local AWS Resources
         run: chmod +x ./scripts/local-aws-setup.sh
       - name: Run Hurl Tests
-        run: hurl --test --glob ./tests/integration/**/*.hurl
+        run: npm run test:integration
 
   docker-hub:
     name: Build and Push to Docker Hub
