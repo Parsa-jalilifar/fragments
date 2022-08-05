@@ -4,6 +4,7 @@ const { nanoid } = require('nanoid');
 const contentType = require('content-type');
 
 var md = require('markdown-it')();
+const sharp = require('sharp');
 
 // Functions for working with fragment metadata/data using our DB
 const {
@@ -196,13 +197,21 @@ class Fragment {
   /**
    * return the converted fragment data after checking type of conversion
    *  */
-  convertData(fragmentData, conversionType) {
+  async convertData(fragmentData, conversionType) {
     switch (conversionType) {
       case 'text/plain':
         return fragmentData.toString();
       case 'text/html':
         if (this.type === 'text/markdown') return md.render(fragmentData.toString());
         return fragmentData;
+      case 'image/png':
+        return await sharp(fragmentData).png().toBuffer();
+      case 'image/jpeg':
+        return await sharp(fragmentData).jpeg().toBuffer();
+      case 'image/gif':
+        return await sharp(fragmentData).gif().toBuffer();
+      case 'image/webp':
+        return await sharp(fragmentData).webp().toBuffer();
       default:
         return fragmentData;
     }
