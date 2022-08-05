@@ -25,13 +25,13 @@ module.exports = async (req, res) => {
         return res.status(415).json(createErrorResponse(415, 'Extension type is not supported.'));
       }
 
-      const type = Fragment.extValidType(ext); // html -> text/html
+      const type = await Fragment.extValidType(ext); // html -> text/html
 
       if (!fragment.formats.includes(type)) {
         return res.status(415).json(createErrorResponse(415, 'Conversion is not allowed.'));
       }
 
-      const newFragmentData = fragment.convertData(fragmentData, type);
+      const newFragmentData = await fragment.convertData(fragmentData, type);
       logger.debug(
         { newFragmentData: newFragmentData, contentType: type },
         'New fragment data and content type'
