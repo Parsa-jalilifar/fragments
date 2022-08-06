@@ -72,10 +72,11 @@ class Fragment {
    */
   static async byId(ownerId, id) {
     const fragment = await readFragment(ownerId, id);
+
     if (!fragment) {
       throw new Error('There is no fragment with provided ownerId or id.');
     }
-    return fragment;
+    return new Fragment(fragment);
   }
 
   /**
