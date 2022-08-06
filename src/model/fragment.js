@@ -58,7 +58,7 @@ class Fragment {
    */
   static async byUser(ownerId, expand = false) {
     try {
-      return new Fragment(await listFragments(ownerId, expand));
+      return await listFragments(ownerId, expand);
     } catch (error) {
       throw new Error('Can not get fragments for the current user.');
     }
