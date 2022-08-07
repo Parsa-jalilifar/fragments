@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
     const id = path.parse(req.params.id).name;
     const ext = path.parse(req.params.id).ext.slice(1);
 
-    const fragment = await Fragment.byId(ownerId, id);
+    const fragment = new Fragment(await Fragment.byId(ownerId, id));
     const fragmentData = await fragment.getData();
 
     if (!ext) {

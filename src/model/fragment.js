@@ -76,7 +76,7 @@ class Fragment {
     if (!fragment) {
       throw new Error('There is no fragment with provided ownerId or id.');
     }
-    return new Fragment(fragment);
+    return fragment;
   }
 
   /**

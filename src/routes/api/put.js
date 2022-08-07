@@ -22,12 +22,19 @@ module.exports = async (req, res) => {
         );
     }
 
-    await fragment.save();
-    await fragment.setData(req.body);
+    const newFragment = new Fragment({
+      ownerId: req.user,
+      id: req.params.id,
+      created: fragment.created,
+      type: req.headers['content-type'],
+      size: Buffer.byteLength(req.body),
+    });
+    await newFragment.save();
+    await newFragment.setData(req.body);
 
     logger.debug({ fragment }, 'Updated fragment');
 
-    res.status(200).json(createSuccessResponse({ fragment }));
+    res.status(200).json(createSuccessResponse({ fragment: newFragment }));
   } catch (error) {
     res.status(404).json(createErrorResponse(404, error.message));
   }
